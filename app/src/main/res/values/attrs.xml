@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="FullscreenAttrs">
+        <attr name="fullscreenBackgroundColor" format="color" />
+        <attr name="fullscreenTextColor" format="color" />
+        <attr name="fullscreenWelcomeTextColor" format="color" />
+        <attr name="loginInstructionColor" format="color" />
+    </declare-styleable>
+</resources>
