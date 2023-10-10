@@ -1,10 +1,9 @@
 package my.significs.gep.faceid.ui.dashboard
 
-import android.graphics.Rect
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import my.significs.gep.faceid.Prediction
+import my.significs.gep.faceid.User
 
 class DashboardViewModel : ViewModel() {
 
@@ -21,21 +20,27 @@ class DashboardViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
-    private val _scanComplete = MutableLiveData<Boolean>().apply {
+    private val _showDialog = MutableLiveData<Boolean>().apply {
         value =  false
     }
-    var scanComplete: MutableLiveData<Boolean> = _scanComplete
+    var showDialog: MutableLiveData<Boolean> = _showDialog
 
-//    fun onScanComplete() {
-//        scanComplete.postValue(true)
-//    }
 
-    private val _predictionResult = MutableLiveData<Prediction>().apply {
-        value =  Prediction(Rect(), "", "")
+
+    private val _predictionResult = MutableLiveData<User>().apply {
+        value =  User(false, "", "", "")
     }
-    var predictionResult: MutableLiveData<Prediction> = _predictionResult
+    var predictionResult: MutableLiveData<User> = _predictionResult
 
-    fun onScanComplete(prediction: Prediction) {
-        predictionResult.postValue(prediction)
+    fun onScanComplete(user: User) {
+        predictionResult.postValue(user)
+    }
+
+    fun onClearScan() {
+        predictionResult.postValue(User(false, "", "", ""))
+    }
+
+    fun onShowDialog(isShow: Boolean) {
+        showDialog.postValue(isShow)
     }
 }

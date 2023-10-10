@@ -8,13 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.view.PreviewView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.switchmaterial.SwitchMaterial
 import my.significs.gep.faceid.MainActivity
 import my.significs.gep.faceid.R
 import my.significs.gep.faceid.databinding.FragmentLoginBinding
+import my.significs.gep.faceid.ui.dashboard.DashboardViewModel
 
 /**
  * An example full-screen fragment that shows and hides the system UI (i.e.
@@ -69,11 +74,13 @@ class LoginFragment : Fragment() {
     private var fullscreenContentControls: View? = null
 
     private var _binding: FragmentLoginBinding? = null
-
+    private lateinit var switchBtn : SwitchMaterial
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val dashboardViewModel by activityViewModels<DashboardViewModel>()
 
+    private var showSwitch : Boolean = true
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -82,9 +89,11 @@ class LoginFragment : Fragment() {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         (activity as? AppCompatActivity)?.supportActionBar?.hide()
+
         return binding.root
 
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -94,6 +103,29 @@ class LoginFragment : Fragment() {
         loginButton = binding.loginButton
         fullscreenContent = binding.fullscreenContent
         fullscreenContentControls = binding.loginGepLogo
+        switchBtn = binding.switchBtn
+        val iconClick = binding.root.findViewById(R.id.login_gep_logo) as ImageView
+
+        iconClick.setOnClickListener {
+            showSwitch = !showSwitch
+
+            if (showSwitch) {
+                switchBtn.visibility =  View.VISIBLE
+            } else {
+                switchBtn.visibility =  View.INVISIBLE
+            }
+
+        }
+
+        switchBtn.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                dashboardViewModel.onShowDialog(true)
+                // The switch is checked.
+            } else {
+                dashboardViewModel.onShowDialog(false)
+                // The switch isn't checked.
+            }
+        }
         // Set up the user interaction to manually show or hide the system UI.
 //        fullscreenContent?.setOnClickListener { toggle() }
 

@@ -18,4 +18,52 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+
+    <color name="primaryColor">#dd6b6b</color>
+    <color name="primaryLightColor">#ff9b99</color>
+    <color name="primaryDarkColor">#a73c40</color>
+
+    <color name="secondaryColor">#332c2c</color>
+    <color name="secondaryLightColor">#5d5555</color>
+    <color name="secondaryDarkColor">#0c0000</color>
+
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#ffffff</color>
+
+    <color name="accentColor">#4f0019</color>
+    <color name="primaryLightTextColor">#0c0000</color>
+
+    <color name="maroonPrimer">#81163f</color>
+    <color name="maroonDark">#4f0019</color>
+    <color name="maroonLight">#b44969</color>
+
+    <color name="mineralGreenPrimer">#455a64</color>
+    <color name="mineralGreenDark">#1C313A</color>
+    <color name="mineralGreenLight">#718792</color>
+
+    <color name="cloudBurstPrimer">#1d3362</color>
+    <color name="cloudBurstDark">#000c37</color>
+    <color name="cloudBurstLight">#4c5c90</color>
+
+    <color name="gold">#E69A15</color>
+    <color name="sand">#FFE0AB</color>
+    <color name="royalBlue">#1d3362</color>
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="blackA70">#B30C0000</color>
+
+    <color name="grey50">#FAFAFA</color>
+    <color name="grey300">#E0E0E0</color>
+    <color name="grey600">#757575</color>
+    <color name="grey800">#332c2c</color>
+    <color name="grey900">#212121</color>
+    <color name="blue900">#0D47A1</color>
+
+    <color name="cyanA200">#18FFFF</color>
+
+    <color name="red500">#F44336</color>
+    <color name="red100">#FFCDD2</color>
+    <color name="greenA400">#76FF03</color>
+    <color name="green900">#1b5e20</color>
 </resources>

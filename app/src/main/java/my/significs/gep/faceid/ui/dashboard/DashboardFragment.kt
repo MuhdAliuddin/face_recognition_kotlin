@@ -5,14 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.DocumentsContract
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.util.Size
 import android.view.LayoutInflater
@@ -33,26 +31,23 @@ import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.common.util.concurrent.ListenableFuture
 import my.significs.gep.faceid.BitmapUtils
 import my.significs.gep.faceid.FileReader
 import my.significs.gep.faceid.FrameAnalyser
 import my.significs.gep.faceid.Logger
-import my.significs.gep.faceid.MainActivity
 import my.significs.gep.faceid.MainActivity.Companion.logTextView
-import my.significs.gep.faceid.Prediction
 import my.significs.gep.faceid.R
 import my.significs.gep.faceid.databinding.FragmentDashboardBinding
 import my.significs.gep.faceid.model.FaceNetModel
 import my.significs.gep.faceid.model.Models
+import my.significs.gep.faceid.User
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
-import java.lang.NullPointerException
 import java.util.concurrent.Executors
 
 
@@ -105,9 +100,6 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        val dashboardViewModel =
-//            ViewModelProvider(this).get(DashboardViewModel::class.java)
-
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -157,12 +149,20 @@ class DashboardFragment : Fragment() {
                 }
                 create()
             }
-            alertDialog.show()
+
+            dashboardViewModel.showDialog.observe(viewLifecycleOwner) { it
+                if (it) {
+                    alertDialog.show()
+                } else {
+                    frameAnalyser.faceList = loadSerializedImageData()
+                }
+            }
+
         }
 
         dashboardViewModel.predictionResult.observe(viewLifecycleOwner) { it
-            if (it.label != "") {
-                val text = "FACE RECOGNITION SUCCESS, REDIRECTING ${it.label}"
+            if (it.name != "") {
+                val text = "FACE RECOGNITION SUCCESS, REDIRECTING ${it.name}"
                 val duration = Toast.LENGTH_SHORT
 
                 Toast.makeText(context, text, duration).show()
@@ -178,14 +178,14 @@ class DashboardFragment : Fragment() {
 
         return root
     }
-    private fun countdownFunc(prediction: Prediction) {
+    private fun countdownFunc(prediction: User) {
         object : CountDownTimer(1000, 1000) {
             // Callback function, fired
             // when the time is up
             override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
-                if (prediction.label == "Edin") {
+                if (prediction.isAdmin === false) {
                     findNavController().navigate(R.id.action_navigation_dash_to_home)
                 } else {
                     launchActivityIntent()
@@ -203,20 +203,6 @@ class DashboardFragment : Fragment() {
             startActivity(i)
         }
     }
-
-//    private fun showConfirmDialog() {
-//        val alertDialog = AlertDialog.Builder( requireContext() ).apply {
-//            setTitle( "Confirm Dialog ")
-//            setMessage( "Confirm login" )
-//            setCancelable( false )
-//            setPositiveButton( "CONFIRM") { dialog, which ->
-//                dialog.dismiss()
-//                findNavController().navigate(R.id.action_navigation_dash_to_home)
-//            }
-//            create()
-//        }
-//        alertDialog.show()
-//    }
 
     private fun showSelectDirectoryDialog() {
         val alertDialog = AlertDialog.Builder( requireContext() ).apply {

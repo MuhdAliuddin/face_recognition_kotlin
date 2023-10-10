@@ -60,9 +60,8 @@ class HomeFragment : Fragment() {
         editTextText = binding.editTextText
 
         dashboardViewModel.predictionResult.observe(viewLifecycleOwner) { it
-            Log.println(Log.ASSERT, "HomeFragment", it.label)
-                editTextText.setText(it.label)
-
+            Log.println(Log.ASSERT, "HomeFragment", it.name)
+                editTextText.setText(it.name)
         }
 //        var inputStream: InputStream?
 

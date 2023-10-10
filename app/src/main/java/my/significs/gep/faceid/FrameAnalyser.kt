@@ -182,6 +182,7 @@ class FrameAnalyser(
 //                            DashboardViewModel.loadUsers()
 //                        }
                         Logger.log("Person identified as $bestScoreUserName")
+//                        val nameLabel = bestScoreUserName.split("_")
                         predictions.add(
                             Prediction(
                                 face.boundingBox,
@@ -216,8 +217,29 @@ class FrameAnalyser(
                 isProcessing = false
                 for (prediction in predictions) {
                     if (prediction.label != "Unknown" && prediction.label != "Please remove the mask") {
-                        Log.println(Log.ASSERT, "predictionz", prediction.label)
-                        dashboardViewModel.onScanComplete(prediction)
+                        val predictionLabel = prediction.label.split("_")
+                        val adminName = "Muhammad Aliuddin Refakaei"
+
+                        if (predictionLabel[0] == adminName) {
+                            dashboardViewModel.onScanComplete(
+                                User(
+                                    false,
+                                    predictionLabel[0],
+                                    predictionLabel[1],
+                                    predictionLabel[2],
+                                )
+                            )
+                        } else {
+                            dashboardViewModel.onScanComplete(
+                                User(
+                                    true,
+                                    predictionLabel[0],
+                                    predictionLabel[1],
+                                    predictionLabel[2],
+                                )
+                            )
+                        }
+
                     }
                 }
             }
