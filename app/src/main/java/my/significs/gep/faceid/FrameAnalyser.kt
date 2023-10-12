@@ -176,13 +176,7 @@ class FrameAnalyser(
                                 names[ avgScores.indexOf( avgScores.minOrNull()!! ) ]
                             }
                         }
-//                        if (bestScoreUserName != "Unknown") {
-//                            Log.d("bestScoreUserName", "bestScoreUserName: ${bestScoreUserName}")
-//                            SuccessScan.succ()
-//                            DashboardViewModel.loadUsers()
-//                        }
                         Logger.log("Person identified as $bestScoreUserName")
-//                        val nameLabel = bestScoreUserName.split("_")
                         predictions.add(
                             Prediction(
                                 face.boundingBox,
@@ -216,20 +210,14 @@ class FrameAnalyser(
                 boundingBoxOverlay.invalidate()
                 isProcessing = false
                 for (prediction in predictions) {
+                    if (prediction.label == "Please remove the mask") {
+                        dashboardViewModel.onRemoveMaskTrue()
+                    }
                     if (prediction.label != "Unknown" && prediction.label != "Please remove the mask") {
                         val predictionLabel = prediction.label.split("_")
-                        val adminName = "Muhammad Aliuddin Refakaei"
-
+                        val adminName = "Mohd Adib Sarijari"
+                        Log.println(Log.ASSERT, "predictionLabel[0]", "${predictionLabel[0] == adminName} ")
                         if (predictionLabel[0] == adminName) {
-                            dashboardViewModel.onScanComplete(
-                                User(
-                                    false,
-                                    predictionLabel[0],
-                                    predictionLabel[1],
-                                    predictionLabel[2],
-                                )
-                            )
-                        } else {
                             dashboardViewModel.onScanComplete(
                                 User(
                                     true,
@@ -238,8 +226,16 @@ class FrameAnalyser(
                                     predictionLabel[2],
                                 )
                             )
+                        } else {
+                            dashboardViewModel.onScanComplete(
+                                User(
+                                    false,
+                                    predictionLabel[0],
+                                    predictionLabel[1],
+                                    predictionLabel[2],
+                                )
+                            )
                         }
-
                     }
                 }
             }

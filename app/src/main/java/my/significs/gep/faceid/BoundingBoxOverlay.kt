@@ -14,8 +14,7 @@ import androidx.core.graphics.toRectF
 // Defines an overlay on which the boxes and text will be drawn.
 class BoundingBoxOverlay( context: Context , attributeSet: AttributeSet, )
     : SurfaceView( context , attributeSet ) , SurfaceHolder.Callback {
-    // Variables used to compute output2overlay transformation matrix
-    // These are assigned in FrameAnalyser.kt
+
     var areDimsInit = false
     var frameHeight = 0
     var frameWidth = 0
@@ -33,7 +32,8 @@ class BoundingBoxOverlay( context: Context , attributeSet: AttributeSet, )
     // Paint for boxes and text
     private val boxPaint = Paint().apply {
         color = Color.parseColor("#4D90caf9")
-        style = Paint.Style.FILL
+        visibility = INVISIBLE
+//        style = Paint.Style.FILL
     }
     private val textPaint = Paint().apply {
         strokeWidth = 2.0f

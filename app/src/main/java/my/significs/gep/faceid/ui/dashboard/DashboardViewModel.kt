@@ -26,11 +26,15 @@ class DashboardViewModel : ViewModel() {
     var showDialog: MutableLiveData<Boolean> = _showDialog
 
 
-
     private val _predictionResult = MutableLiveData<User>().apply {
         value =  User(false, "", "", "")
     }
     var predictionResult: MutableLiveData<User> = _predictionResult
+
+    private val _removeMask = MutableLiveData<Boolean>().apply {
+        value =  false
+    }
+    var removeMask: MutableLiveData<Boolean> = _removeMask
 
     fun onScanComplete(user: User) {
         predictionResult.postValue(user)
@@ -42,5 +46,13 @@ class DashboardViewModel : ViewModel() {
 
     fun onShowDialog(isShow: Boolean) {
         showDialog.postValue(isShow)
+    }
+
+    fun onRemoveMaskTrue() {
+        removeMask.postValue(true)
+    }
+
+    fun onRemoveMaskFalse() {
+        removeMask.postValue(false)
     }
 }

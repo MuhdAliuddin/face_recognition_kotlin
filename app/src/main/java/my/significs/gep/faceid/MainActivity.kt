@@ -21,9 +21,9 @@ class MainActivity : AppCompatActivity() {
     companion object {
         lateinit var logTextView : TextView
 
-        fun setMessage( message : String ) {
-            logTextView.text = message
-        }
+//        fun setMessage( message : String ) {
+//            logTextView.text = message
+//        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

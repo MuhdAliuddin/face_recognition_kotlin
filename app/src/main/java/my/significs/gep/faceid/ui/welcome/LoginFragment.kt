@@ -8,13 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.view.PreviewView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 import my.significs.gep.faceid.MainActivity
 import my.significs.gep.faceid.R
@@ -79,7 +83,6 @@ class LoginFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private val dashboardViewModel by activityViewModels<DashboardViewModel>()
-
     private var showSwitch : Boolean = true
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -104,6 +107,7 @@ class LoginFragment : Fragment() {
         fullscreenContent = binding.fullscreenContent
         fullscreenContentControls = binding.loginGepLogo
         switchBtn = binding.switchBtn
+
         val iconClick = binding.root.findViewById(R.id.login_gep_logo) as ImageView
 
         iconClick.setOnClickListener {
@@ -126,6 +130,7 @@ class LoginFragment : Fragment() {
                 // The switch isn't checked.
             }
         }
+
         // Set up the user interaction to manually show or hide the system UI.
 //        fullscreenContent?.setOnClickListener { toggle() }
 

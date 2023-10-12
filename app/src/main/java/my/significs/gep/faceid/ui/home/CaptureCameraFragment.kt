@@ -38,6 +38,7 @@ import my.significs.gep.faceid.databinding.FragmentHomeBinding
 import java.io.File
 import java.nio.file.Files.createFile
 import java.util.Locale
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class CaptureCameraFragment : Fragment() {
@@ -47,7 +48,7 @@ class CaptureCameraFragment : Fragment() {
 
     //CAMERA VAR
     private lateinit var cameraProviderFuture : ListenableFuture<ProcessCameraProvider>
-
+    private lateinit var cameraExecutor: ExecutorService
     // Camera Facing
     private val cameraFacing = CameraSelector.LENS_FACING_BACK
     // This property is only valid between onCreateView and
@@ -73,56 +74,13 @@ class CaptureCameraFragment : Fragment() {
             requestCameraPermission()
         }
         else {
-            startCameraPreview()
+            startCamera()
         }
+        cameraExecutor = Executors.newSingleThreadExecutor()
 
-
-
-//        val captureImageButton = binding.captureImageButton
-//        captureImageButton.setOnClickListener {
-//            val imageCapture = ImageCapture.Builder().build()
-//            val photoFile = createFile(outputDirectory, FILENAME, PHOTO_EXTENSION)
-//            val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-//
-//            imageCapture.takePicture(outputOptions, ContextCompat.getMainExecutor(requireContext()), object : ImageCapture.OnImageSavedCallback {
-//                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-//                    val savedUri = outputFileResults.savedUri
-//                    val msg = "Photo capture succeeded: $savedUri"
-//                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-//                    Log.d(TAG, msg)
-//                }
-//
-//                override fun onError(exception: ImageCaptureException) {
-//                    val msg = "Photo capture failed: ${exception.message}"
-//                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-//                    Log.e(TAG, msg)
-//                }
-//            })
-//        }
-
-//        val textView: TextView = binding.textHome
-//        homeViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
         return root
     }
 
-    private fun startCameraPreview() {
-        cameraProviderFuture = ProcessCameraProvider.getInstance( requireContext() )
-        cameraProviderFuture.addListener({
-            val cameraProvider = cameraProviderFuture.get()
-            bindPreview(cameraProvider) },
-            ContextCompat.getMainExecutor(requireContext()) )
-    }
-
-    private fun bindPreview(cameraProvider : ProcessCameraProvider) {
-        val preview : Preview = Preview.Builder().build()
-        val cameraSelector : CameraSelector = CameraSelector.Builder()
-            .requireLensFacing( cameraFacing )
-            .build()
-        preview.setSurfaceProvider( previewView.surfaceProvider )
-        cameraProvider.bindToLifecycle(this as LifecycleOwner, cameraSelector, preview  )
-    }
 
     private fun requestCameraPermission() {
         cameraPermissionLauncher.launch( Manifest.permission.CAMERA )
@@ -131,7 +89,7 @@ class CaptureCameraFragment : Fragment() {
     private val cameraPermissionLauncher = registerForActivityResult( ActivityResultContracts.RequestPermission() ) {
             isGranted ->
         if ( isGranted ) {
-            startCameraPreview()
+            startCamera()
         }
         else {
             val alertDialog = AlertDialog.Builder( requireContext() ).apply {
@@ -152,6 +110,38 @@ class CaptureCameraFragment : Fragment() {
 
     }
 
+    private fun startCamera() {
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+
+        cameraProviderFuture.addListener({
+            // Used to bind the lifecycle of cameras to the lifecycle owner
+            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+
+            // Preview
+            val preview = Preview.Builder()
+                .build()
+                .also {
+                    it.setSurfaceProvider(binding.previewView.surfaceProvider)
+                }
+
+            // Select back camera as a default
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+            try {
+                // Unbind use cases before rebinding
+                cameraProvider.unbindAll()
+
+                // Bind use cases to camera
+                cameraProvider.bindToLifecycle(
+                    this, cameraSelector, preview)
+
+            } catch(exc: Exception) {
+                Log.e(TAG, "Use case binding failed", exc)
+            }
+
+        }, ContextCompat.getMainExecutor(requireContext()))
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -161,5 +151,19 @@ class CaptureCameraFragment : Fragment() {
         super.onResume()
         val navView: BottomNavigationView = (activity as MainActivity).binding.navView
         navView.visibility = View.VISIBLE
+    }
+
+    companion object {
+        private const val TAG = "CameraXApp"
+        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+        private val REQUIRED_PERMISSIONS =
+            mutableListOf (
+                Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO
+            ).apply {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                }
+            }.toTypedArray()
     }
 }

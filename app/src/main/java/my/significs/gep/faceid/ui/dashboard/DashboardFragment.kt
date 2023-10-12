@@ -16,6 +16,7 @@ import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,6 +26,7 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.documentfile.provider.DocumentFile
@@ -32,6 +34,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.google.common.util.concurrent.ListenableFuture
 import my.significs.gep.faceid.BitmapUtils
 import my.significs.gep.faceid.FileReader
@@ -49,6 +52,7 @@ import java.io.FileOutputStream
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.util.concurrent.Executors
+import java.util.logging.Handler
 
 
 class DashboardFragment : Fragment() {
@@ -73,6 +77,7 @@ class DashboardFragment : Fragment() {
 
     private lateinit var  scanFrameRed : ImageView
     private lateinit var  scanFrameGreen : ImageView
+    private lateinit var dashCL : ConstraintLayout
     // Camera Facing
     private val cameraFacing = CameraSelector.LENS_FACING_FRONT
 
@@ -108,8 +113,8 @@ class DashboardFragment : Fragment() {
 
         scanFrameRed = binding.scanFrameRed
         scanFrameGreen = binding.scanFrameGreen
+        dashCL = binding.dashCL
 
-//        logTextView.movementMethod = ScrollingMovementMethod()
         // Necessary to keep the Overlay above the PreviewView so that the boxes are visible.
         val boundingBoxOverlay = binding.bboxOverlay
         boundingBoxOverlay.cameraFacing = cameraFacing
@@ -159,20 +164,25 @@ class DashboardFragment : Fragment() {
             }
 
         }
-
         dashboardViewModel.predictionResult.observe(viewLifecycleOwner) { it
-            if (it.name != "") {
-                val text = "FACE RECOGNITION SUCCESS, REDIRECTING ${it.name}"
-                val duration = Toast.LENGTH_SHORT
 
-                Toast.makeText(context, text, duration).show()
+            if (it.name != "") {
+                val snack = Snackbar.make(dashCL,  "FACE RECOGNITION SUCCESS, REDIRECTING ${it.name}",2000)
+                snack.show()
 
                 scanFrameRed.visibility = View.INVISIBLE
                 scanFrameGreen.visibility = View.VISIBLE
 
                 countdownFunc(it)
-//                findNavController().navigate(R.id.action_navigation_dash_to_home)
-//                launchActivityIntent()
+            }
+        }
+
+        dashboardViewModel.removeMask.observe(viewLifecycleOwner) { it
+            if (it == true) {
+                val snack = Snackbar.make(dashCL, "Please remove your mask",1000)
+                Log.println(Log.ASSERT, "removeMask", "${it}")
+                dashboardViewModel.onRemoveMaskFalse()
+                snack.show()
             }
         }
 
@@ -188,6 +198,9 @@ class DashboardFragment : Fragment() {
                 if (prediction.isAdmin === false) {
                     findNavController().navigate(R.id.action_navigation_dash_to_home)
                 } else {
+                    dashboardViewModel.onClearScan()
+                    scanFrameRed.visibility = View.VISIBLE
+                    scanFrameGreen.visibility = View.INVISIBLE
                     launchActivityIntent()
                 }
             }
