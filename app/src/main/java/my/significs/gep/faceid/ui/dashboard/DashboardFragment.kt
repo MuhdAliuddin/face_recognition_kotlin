@@ -196,7 +196,7 @@ class DashboardFragment : Fragment() {
 
             override fun onFinish() {
                 if (prediction.isAdmin === false) {
-                    findNavController().navigate(R.id.action_navigation_dash_to_home)
+//                    findNavController().navigate(R.id.action_navigation_dash_to_home)
                 } else {
                     dashboardViewModel.onClearScan()
                     scanFrameRed.visibility = View.VISIBLE

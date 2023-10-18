@@ -138,7 +138,7 @@ class LoginFragment : Fragment() {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         loginButton?.setOnClickListener(View.OnClickListener {
-            findNavController().navigate(R.id.action_navigation_login_to_camera)
+            findNavController().navigate(R.id.action_navigation_login_to_home)
         })
 //        (activity as? AppCompatActivity)?.supportActionBar?.hide()
     }

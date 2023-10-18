@@ -44,7 +44,7 @@ class NotificationsFragment : Fragment() {
             setPositiveButton( "CONFIRM") { dialog, which ->
                 dashboardViewModel.onClearScan()
                 dialog.dismiss()
-                findNavController().navigate(R.id.action_navigation_noti_to_logout)
+//                findNavController().navigate(R.id.action_navigation_noti_to_logout)
             }
             setNegativeButton("CANCEL") {dialog, which ->
                 dialog.dismiss()

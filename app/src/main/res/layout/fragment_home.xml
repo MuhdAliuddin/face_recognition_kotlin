@@ -138,19 +138,38 @@
         android:id="@+id/cameraCV"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginTop="20dp"
         app:cardBackgroundColor="#989898"
         app:cardCornerRadius="100dp"
         app:cardElevation="25dp"
         app:layout_constraintTop_toBottomOf="@+id/bottomLL"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/listCV">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="10dp"
             android:src="@drawable/ic_camera" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/listCV"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/cameraCV"
+        app:layout_constraintBottom_toTopOf="@+id/save_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"/>
+
     </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.Guideline
@@ -162,17 +181,17 @@
         app:layout_constraintGuide_begin="196dp"
         app:layout_constraintBottom_toTopOf="parent"/>
 
-<!--    <Button-->
-<!--        android:id="@+id/save_button"-->
-<!--        android:layout_width="315dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:background="#7F0E27"-->
-<!--        android:text="SAVE"-->
-<!--        android:textColor="@color/white"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/cameraCV"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="315dp"
+        android:layout_height="50dp"
+        android:background="#7F0E27"
+        android:layout_marginBottom="20dp"
+        android:text="SAVE"
+        android:textColor="@color/white"
+        app:flow_verticalAlign="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

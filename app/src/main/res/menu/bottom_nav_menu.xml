@@ -2,13 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/home_icon"
+        android:id="@+id/navigation_companies"
+        android:icon="@drawable/nav_home_icon"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/logout_icon"
+        android:id="@+id/navigation_face_recog"
+        android:icon="@drawable/nav_scan_icon"
+        android:title="@string/title_face" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/nav_profile_icon"
+        android:title="@string/title_profile" />
+
+    <item
+        android:id="@+id/navigation_logout"
+        android:icon="@drawable/baseline_logout_24"
         android:title="@string/title_logout" />
 
 </menu>
