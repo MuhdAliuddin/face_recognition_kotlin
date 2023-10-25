@@ -6,31 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".ui.logout.LogoutFragment">
 
-    <LinearLayout
-        android:id="@+id/headerLL"
+    <ImageView
+        android:id="@+id/login_gep_logo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <ImageView
-            android:id="@+id/headerIV"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:src="@mipmap/gep_trademark"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    </LinearLayout>
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:contentDescription="@string/title_login"
+        android:gravity="top"
+        android:src="@mipmap/gep_trademark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:backgroundTint="#7F0000"
+        android:textColor="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeCL"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imageListMCV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginHorizontal="30dp"
+        android:layout_margin="10dp"
+        app:cardElevation="5dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+
+
+            <ImageView
+                android:id="@+id/imgItemIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_item_icon" />
+
+            <TextView
+                android:id="@+id/fileNameTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="sans-serif-black"/>
+
+            <TextView
+                android:id="@+id/activePillTV"
+                android:textColor="@color/white"
+                android:text="Active"
+                android:textSize="8dp"
+                android:padding="4dp"
+                android:textAlignment="center"
+                android:background="@drawable/pill_btn"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:fontFamily="sans-serif-black"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/activeBTN"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:background="@color/greenA400"
+        android:layout_marginVertical="10dp"
+        android:text="Active"
+        android:textColor="@color/white"
+        android:textSize="7dp"
+        app:backgroundTint="@color/greenA400"
+        app:flow_verticalAlign="bottom"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/deleteBTN"/>
+
+    <Button
+        android:id="@+id/deleteBTN"
+        android:layout_width="65dp"
+        android:layout_height="40dp"
+        android:background="#7F0E27"
+        android:layout_marginVertical="10dp"
+        app:backgroundTint="#E64646"
+        android:layout_marginRight="10dp"
+        android:text="Delete"
+        android:textColor="@color/white"
+        android:textSize="7dp"
+        app:flow_verticalAlign="bottom"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

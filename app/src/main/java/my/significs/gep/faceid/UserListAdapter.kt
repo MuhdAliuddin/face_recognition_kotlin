@@ -17,6 +17,7 @@ import my.significs.gep.faceid.model.UserModel
 class UserListAdapter(
     private val context: Context,
     private val dataset: List<UserModel>,
+    private val onCompanyClickListener: OnCompanyClickListener
 ): RecyclerView.Adapter<UserListAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
@@ -43,7 +44,8 @@ class UserListAdapter(
         holder.employeeIDTV.text = item.employeeID
 
         holder.listItemMCV.setOnClickListener { view ->
-//            view.findNavController().navigate(R.id.action_navigation_company_to_employee)
+            onCompanyClickListener.onUserClick(item)
+            view.findNavController().navigate(R.id.action_navigation_employee_to_details)
         }
     }
 

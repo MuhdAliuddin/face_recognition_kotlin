@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import my.significs.gep.faceid.MainActivity
 import my.significs.gep.faceid.OnCompanyClickListener
 import my.significs.gep.faceid.databinding.FragmentCompanyListBinding
 import my.significs.gep.faceid.model.CompanyModel
+import my.significs.gep.faceid.model.UserModel
 
 
 class CompanyListFragment : Fragment(), OnCompanyClickListener {
@@ -27,6 +29,9 @@ class CompanyListFragment : Fragment(), OnCompanyClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCompanyListBinding.inflate(inflater, container, false)
+        (activity as? AppCompatActivity)?.supportActionBar?.show()
+        (activity as AppCompatActivity).supportActionBar?.title = "HOME"
+
         val root: View = binding.root
 
         recycler_view = binding.recyclerView
@@ -41,6 +46,7 @@ class CompanyListFragment : Fragment(), OnCompanyClickListener {
 
         return root
     }
+    override fun onUserClick(user: UserModel) { }
     override fun onCompanyClick(company: CompanyModel) {
         companyViewModel.onLoadUsers(company)
     }

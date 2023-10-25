@@ -22,4 +22,7 @@
         <item name="fullscreenWelcomeTextColor">@color/gep_primary</item>
         <item name="loginInstructionColor">@color/gep_text_secondary</item>
     </style>
+
+
+
 </resources>

@@ -6,33 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/headerLL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <ImageView
-            android:id="@+id/scanFrameGreen"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:src="@mipmap/gep_trademark"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    </LinearLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/nameCon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
-        app:layout_constraintTop_toBottomOf="@+id/headerLL"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
         <TextView
@@ -54,6 +33,7 @@
             android:enabled="true"
             android:inputType="text"
             android:padding="15dp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -134,42 +114,69 @@
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cameraCV"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        app:cardBackgroundColor="#989898"
+        android:layout_marginTop="40dp"
+        app:cardBackgroundColor="#9E9E9E"
         app:cardCornerRadius="100dp"
         app:cardElevation="25dp"
-        app:layout_constraintTop_toBottomOf="@+id/bottomLL"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/listCV">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:src="@drawable/ic_camera" />
+        app:layout_constraintTop_toBottomOf="@+id/bottomLL">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_camera" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/listCV"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-
-        app:layout_constraintTop_toBottomOf="@+id/cameraCV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:elevation="0dp"
+        android:layout_marginBottom="20dp"
+        app:cardBackgroundColor="#D9D9D9"
         app:layout_constraintBottom_toTopOf="@+id/save_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         >
 
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/imageListCL"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/companyListSV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
+            <TextView
+                android:id="@+id/editTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Edit"
+                android:layout_margin="10dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imageListRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/editTV"
+                android:scrollbars="vertical"
+                android:layout_marginTop="10dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.Guideline
@@ -186,7 +193,9 @@
         android:layout_width="315dp"
         android:layout_height="50dp"
         android:background="#7F0E27"
-        android:layout_marginBottom="20dp"
+        app:backgroundTint="#7F0000"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp"
         android:text="SAVE"
         android:textColor="@color/white"
         app:flow_verticalAlign="bottom"

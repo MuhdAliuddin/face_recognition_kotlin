@@ -27,7 +27,7 @@ class CompanyListAdapter(
 ): RecyclerView.Adapter<CompanyListAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
-        val nameTV: TextView = view.findViewById(R.id.nameTV)
+        val nameTV: TextView = view.findViewById(R.id.companyNameTV)
         val listItemMCV: MaterialCardView = view.findViewById(R.id.companyListMCV)
     }
 

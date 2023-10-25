@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.updatePadding
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -46,6 +47,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_logout
             )
         )
+
+        binding.navView.setOnApplyWindowInsetsListener { view, insets ->
+            view.updatePadding(bottom = 0)
+            insets
+        }
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

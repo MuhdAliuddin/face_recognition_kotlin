@@ -78,11 +78,9 @@ class SplashScreen : Fragment() {
         val handler = Handler(Looper.getMainLooper())
 
         // Post a Runnable to be run after a 2 second delay
-        handler.postDelayed({
-            findNavController().navigate(R.id.action_navigation_welcome_to_navigation_login)
-            // Navigate away from the current fragment
-//            findNavController().navigate(R.id)
-        }, 1000)
+//        handler.postDelayed({
+//            findNavController().navigate(R.id.action_navigation_welcome_to_navigation_login)
+//        }, 1000)
     }
 
     override fun onResume() {
@@ -150,8 +148,8 @@ class SplashScreen : Fragment() {
      * previously scheduled calls.
      */
     private fun delayedHide(delayMillis: Int) {
-        hideHandler.removeCallbacks(hideRunnable)
-        hideHandler.postDelayed(hideRunnable, delayMillis.toLong())
+//        hideHandler.removeCallbacks(hideRunnable)
+//        hideHandler.postDelayed(hideRunnable, delayMillis.toLong())
     }
 
     companion object {

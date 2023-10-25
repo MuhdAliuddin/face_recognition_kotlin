@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_welcome">
+    app:startDestination="@id/navigation_login">
 
     <fragment
         android:id="@+id/navigation_welcome"
@@ -42,19 +42,32 @@
             app:destination="@id/navigation_users"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+
     </fragment>
 
     <fragment
         android:id="@+id/navigation_users"
         android:name="my.significs.gep.faceid.ui.users.UserListFragment"
         android:label="@string/title_login"
-        tools:layout="@layout/fragment_user_list" />
+        tools:layout="@layout/fragment_user_list" >
+        <action
+            android:id="@+id/action_navigation_employee_to_details"
+            app:destination="@id/navigation_user_details"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="my.significs.gep.faceid.ui.profile.ProfileFragment"
         android:label="@string/title_login"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_password"
+            app:destination="@id/navigation_password"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_password"
@@ -73,47 +86,5 @@
         android:name="my.significs.gep.faceid.ui.logout.LogoutFragment"
         android:label="@string/title_login"
         tools:layout="@layout/fragment_logout" />
-
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_home"-->
-<!--        android:name="my.significs.gep.faceid.ui.home.HomeFragment"-->
-<!--        android:label="@string/title_home"-->
-<!--        tools:layout="@layout/fragment_home" >-->
-<!--        <action-->
-<!--            android:id="@+id/action_navigation_dash_to_home"-->
-<!--            app:destination="@id/navigation_home"-->
-<!--            app:launchSingleTop="false"-->
-<!--            app:popUpToInclusive="true" />-->
-<!--        <action-->
-<!--            android:id="@+id/action_navigation_home_to_notification"-->
-<!--            app:destination="@id/navigation_notifications"-->
-<!--            app:launchSingleTop="false"-->
-<!--            app:popUpTo="@id/navigation_home"-->
-<!--            app:popUpToInclusive="true" />-->
-<!--    </fragment>-->
-
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_dashboard"-->
-<!--        android:name="my.significs.gep.faceid.ui.dashboard.DashboardFragment"-->
-<!--        android:label="@string/title_dashboard"-->
-<!--        tools:layout="@layout/fragment_dashboard" >-->
-<!--        <action-->
-<!--            android:id="@+id/action_navigation_dash_to_home"-->
-<!--            app:destination="@id/navigation_home"-->
-<!--            app:launchSingleTop="false"-->
-<!--            app:popUpToInclusive="true" />-->
-<!--    </fragment>-->
-
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_notifications"-->
-<!--        android:name="my.significs.gep.faceid.ui.notifications.NotificationsFragment"-->
-<!--        android:label="@string/title_notifications"-->
-<!--        tools:layout="@layout/fragment_notifications" >-->
-<!--        <action-->
-<!--            android:id="@+id/action_navigation_noti_to_logout"-->
-<!--            app:destination="@id/navigation_login"-->
-<!--            app:launchSingleTop="false"-->
-<!--            app:popUpToInclusive="true" />-->
-<!--    </fragment>-->
 
 </navigation>

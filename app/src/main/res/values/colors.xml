@@ -20,7 +20,7 @@
     <color name="colorAccent">#03DAC5</color>
 
 
-    <color name="primaryColor">#dd6b6b</color>
+    <color name="primaryColor">#4B4B4B</color>
     <color name="primaryLightColor">#ff9b99</color>
     <color name="primaryDarkColor">#a73c40</color>
 
@@ -64,6 +64,6 @@
 
     <color name="red500">#F44336</color>
     <color name="red100">#FFCDD2</color>
-    <color name="greenA400">#76FF03</color>
+    <color name="greenA400">#56AE4E</color>
     <color name="green900">#1b5e20</color>
 </resources>

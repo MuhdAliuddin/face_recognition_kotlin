@@ -1,5 +1,9 @@
 <resources>
 
+    <style name="Button.Green" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/greenA400</item>
+    </style>
+
     <style name="Widget.Theme.FaceID.ButtonBar.Fullscreen" parent="">
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>

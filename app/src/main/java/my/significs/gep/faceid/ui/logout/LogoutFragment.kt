@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import my.significs.gep.faceid.databinding.FragmentLogoutBinding
@@ -19,12 +20,14 @@ class LogoutFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private val dashboardViewModel by activityViewModels<DashboardViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLogoutBinding.inflate(inflater, container, false)
+        (activity as AppCompatActivity).supportActionBar?.title = "LOGOUT"
         val root: View = binding.root
 
         val logoutBtn: Button = binding.logoutButton
