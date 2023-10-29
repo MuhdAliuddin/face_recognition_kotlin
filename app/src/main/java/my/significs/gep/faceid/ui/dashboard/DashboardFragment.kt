@@ -165,7 +165,6 @@ class DashboardFragment : Fragment() {
 
         }
         dashboardViewModel.predictionResult.observe(viewLifecycleOwner) { it
-
             if (it.name != "") {
                 val snack = Snackbar.make(dashCL,  "FACE RECOGNITION SUCCESS, REDIRECTING ${it.name}",2000)
                 snack.show()
@@ -196,7 +195,8 @@ class DashboardFragment : Fragment() {
 
             override fun onFinish() {
                 if (prediction.isAdmin === false) {
-//                    findNavController().navigate(R.id.action_navigation_dash_to_home)
+                    dashboardViewModel.onClearScan()
+                    findNavController().navigate(R.id.action_navigation_scan_to_result)
                 } else {
                     dashboardViewModel.onClearScan()
                     scanFrameRed.visibility = View.VISIBLE

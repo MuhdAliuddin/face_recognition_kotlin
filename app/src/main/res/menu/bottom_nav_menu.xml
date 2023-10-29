@@ -7,9 +7,14 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_new_face"
+        android:id="@+id/navigation_scan_face"
         android:icon="@drawable/nav_scan_icon"
         android:title="@string/title_face" />
+
+    <item
+        android:id="@+id/navigation_new_face"
+        android:icon="@drawable/add_new_user_icon"
+        android:title="@string/title_register" />
 
     <item
         android:id="@+id/navigation_profile"
