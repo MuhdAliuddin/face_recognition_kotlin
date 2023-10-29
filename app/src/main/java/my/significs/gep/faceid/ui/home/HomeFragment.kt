@@ -1,10 +1,14 @@
 package my.significs.gep.faceid.ui.home
 
+import android.app.Dialog
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import my.significs.gep.faceid.ImageListAdapter
 import my.significs.gep.faceid.MainActivity
 import my.significs.gep.faceid.OnCompanyClickListener
+import my.significs.gep.faceid.R
 import my.significs.gep.faceid.databinding.FragmentHomeBinding
 import my.significs.gep.faceid.model.CompanyModel
 import my.significs.gep.faceid.model.UserModel
@@ -51,6 +56,8 @@ class HomeFragment : Fragment(), OnCompanyClickListener {
     private lateinit var  employeeET : EditText
     private lateinit var  accessCardET : EditText
     private lateinit var  editTV : TextView
+    private lateinit var  saveButton : Button
+
 
     private lateinit var homeCL : ConstraintLayout
     private lateinit var  recycler_view : RecyclerView
@@ -87,8 +94,12 @@ class HomeFragment : Fragment(), OnCompanyClickListener {
         employeeET = binding.employeeET
         accessCardET = binding.accessCardET
         editTV = binding.editTV
-
+        saveButton = binding.saveButton
         recycler_view = binding.imageListRV
+
+        saveButton.setOnClickListener { view: View? ->
+            showDialog()
+        }
 
         editTV.setOnClickListener { view: View? ->
             if (editStatusVal) {
@@ -141,6 +152,52 @@ class HomeFragment : Fragment(), OnCompanyClickListener {
 
     override fun onUserClick(user: UserModel) {}
     override fun onCompanyClick(company: CompanyModel) {}
+
+    private fun showDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.save_changes_dialog)
+
+        val yesBtn = dialog.findViewById(R.id.savedBtn) as Button
+        yesBtn.setOnClickListener {
+            dialog.dismiss()
+            showSuccess("Update success", "Your face has been updated in the system")
+        }
+
+        val noBtn = dialog.findViewById(R.id.discardBtn) as Button
+        noBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+
+    private fun showSuccess(mainText: String, sucText: String) {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.success_update_dialog)
+
+        dialog.show()
+
+        val successTV = dialog.findViewById(R.id.successTV) as TextView
+        val mainDialogTV = dialog.findViewById(R.id.mainDialogTV) as TextView
+
+        successTV.text = sucText
+        mainDialogTV.text = mainText
+
+        object : CountDownTimer(1000, 1000) {
+            // Callback function, fired
+            // when the time is up
+            override fun onTick(millisUntilFinished: Long) {}
+
+            override fun onFinish() {
+                dialog.dismiss()
+            }
+        }.start()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

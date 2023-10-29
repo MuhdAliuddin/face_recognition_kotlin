@@ -20,16 +20,20 @@ class CompanyViewModel: ViewModel()  {
         value = TLPUserList
     }
     private val _selectedUser = MutableLiveData<UserModel>().apply {
-        value = UserModel("", "", "")
+        value = UserModel("MOHD AMIRUL BIN AHMAD", "F0923551", "F0923551")
     }
     private val _editStatus = MutableLiveData<Boolean>().apply {
         value = false
+    }
+    private val _firstLoad = MutableLiveData<Boolean>().apply {
+        value = true
     }
 
     val userList: MutableLiveData<List<UserModel>> = _userList
     val companyList: MutableLiveData<List<CompanyModel>> = _companyList
     val selectedUser: MutableLiveData<UserModel> = _selectedUser
     val editStatus: MutableLiveData<Boolean> = _editStatus
+    val firstLoad: MutableLiveData<Boolean> = _firstLoad
 
     fun onLoadUsers(companyName: CompanyModel) {
         val matchedUser = findUser(companyName)
@@ -50,5 +54,7 @@ class CompanyViewModel: ViewModel()  {
     fun onEditStatusTrue() {
         editStatus.postValue(true)
     }
-
+    fun onFirstLoad() {
+        editStatus.postValue(false)
+    }
 }

@@ -1,7 +1,5 @@
 package my.significs.gep.faceid.model
 
-
-
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
@@ -12,5 +10,5 @@ data class UserModel(
     val name : String,
     val email : String,
     val employeeID : String,
-    val cardID: String = "",
+    val cardID: String = "18726892787399",
 )

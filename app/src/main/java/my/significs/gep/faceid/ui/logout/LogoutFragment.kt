@@ -1,14 +1,18 @@
 package my.significs.gep.faceid.ui.logout
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import my.significs.gep.faceid.R
 import my.significs.gep.faceid.databinding.FragmentLogoutBinding
 import my.significs.gep.faceid.databinding.FragmentNotificationsBinding
 import my.significs.gep.faceid.ui.dashboard.DashboardViewModel
@@ -32,28 +36,30 @@ class LogoutFragment : Fragment() {
 
         val logoutBtn: Button = binding.logoutButton
         logoutBtn?.setOnClickListener(View.OnClickListener {
-            showConfirmDialog()
+            showDialog()
         })
         return root
     }
 
 
-    private fun showConfirmDialog() {
-        val alertDialog = AlertDialog.Builder( requireContext() ).apply {
-            setTitle( "Confirm Dialog ")
-            setMessage( "Confirm logout?" )
-            setCancelable( false )
-            setPositiveButton( "CONFIRM") { dialog, which ->
-                dashboardViewModel.onClearScan()
-                dialog.dismiss()
-//                findNavController().navigate(R.id.action_navigation_noti_to_logout)
-            }
-            setNegativeButton("CANCEL") {dialog, which ->
-                dialog.dismiss()
-            }
-            create()
+    private fun showDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.logout_dialog)
+
+        val yesBtn = dialog.findViewById(R.id.confirmBtn) as Button
+        yesBtn.setOnClickListener {
+            dialog.dismiss()
+            findNavController().navigate(R.id.action_navigation_logout_to_login)
         }
-        alertDialog.show()
+
+        val noBtn = dialog.findViewById(R.id.cancelBtn) as Button
+        noBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     override fun onDestroyView() {

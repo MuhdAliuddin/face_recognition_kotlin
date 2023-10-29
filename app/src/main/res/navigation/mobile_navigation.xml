@@ -73,7 +73,13 @@
         android:id="@+id/navigation_password"
         android:name="my.significs.gep.faceid.ui.password.PasswordFragment"
         android:label="@string/title_login"
-        tools:layout="@layout/fragment_password" />
+        tools:layout="@layout/fragment_password" >
+        <action
+            android:id="@+id/action_navigation_password_to_profile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_user_details"
@@ -85,6 +91,48 @@
         android:id="@+id/navigation_logout"
         android:name="my.significs.gep.faceid.ui.logout.LogoutFragment"
         android:label="@string/title_login"
-        tools:layout="@layout/fragment_logout" />
+        tools:layout="@layout/fragment_logout" >
+        <action
+            android:id="@+id/action_navigation_logout_to_login"
+            app:destination="@id/navigation_login"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_result"
+        android:name="my.significs.gep.faceid.ui.facedetection.FaceDetectionFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_face_detection_result" >
+        <action
+            android:id="@+id/action_navigation_result_to_details"
+            app:destination="@id/navigation_result_details"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+
+        <action
+            android:id="@+id/action_navigation_new_to_result"
+            app:destination="@id/navigation_result"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_result_details"
+        android:name="my.significs.gep.faceid.ui.facedetection.FaceResultDetailsFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_face_detection_details" />
+
+    <fragment
+        android:id="@+id/navigation_new_face"
+        android:name="my.significs.gep.faceid.ui.facedetection.NewFaceFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_new_face" >
+        <action
+            android:id="@+id/action_navigation_new_to_result"
+            app:destination="@id/navigation_result"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
 
 </navigation>
